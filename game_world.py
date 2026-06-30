@@ -18,7 +18,7 @@ ROOMS = {
 
     # ── SCENE 1 ──
     "ocean_beginning": {
-        "name": "The Ocean",  # TASK 1: rename this scene
+        "name": "SCENE 1",  # TASK 1: rename this scene
         "description": (
             "You find yourself on a weathered vessel, surrounded by open ocean. "
             "A flag snaps overhead. You do not know how you got here. "
@@ -33,7 +33,7 @@ ROOMS = {
 
     # ── SCENE 2 ──
     "treasure_island": {
-        "name": "The Coconut Island",  # TASK 1: rename this scene
+        "name": "SCENE 2",  # TASK 1: rename this scene
         "description": (
             "A single patch of land made of sand and one coconut tree. "
             "A chest lays at the foot of the tree. "
@@ -48,7 +48,7 @@ ROOMS = {
 
     # ── SCENE 3 ──
     "ocean_middle": {
-        "name": "The Endless Horizon",  # TASK 1: rename this scene
+        "name": "SCENE 3",  # TASK 1: rename this scene
         "description": (
             "It is pitch dark here. All you can see are bright stars in the night sky "
             "forming a certain shape. A parchment with a clue might help you find the way."
@@ -61,7 +61,7 @@ ROOMS = {
 
     # ── SCENE 4 ──
     "ocean_end": {
-        "name": "The End of Waters",  # TASK 1: rename this scene
+        "name": "SCENE 4",  # TASK 1: rename this scene
         "description": (
             "You are in open water. A rocky shore is visible to the east."
         ),
@@ -74,7 +74,7 @@ ROOMS = {
 
     # ── SCENE 5 ──
     "cave_entrance": {
-        "name": "Cave Entrance",  # TASK 1: rename this scene
+        "name": "SCENE 5",  # TASK 1: rename this scene
         "description": (
             "You stand on a rocky shore at the base of a cliff. "
             "A cave entrance is carved into the rock to the north. "
@@ -88,7 +88,7 @@ ROOMS = {
 
     # ── SCENE 6 ──
     "cave": {
-        "name": "The Cave",  # TASK 1: rename this scene
+        "name": "SCENE 6",  # TASK 1: rename this scene
         "description": (
             "The cave is pitch black. You can barely see your hand in front of your face. "
             "You sense something extraordinary is in here — but you need light to find it."
