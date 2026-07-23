@@ -242,6 +242,7 @@ ENEMIES = {
             "You look lost. The sea tends to have that effect on people.",
             "Last warning: leave the chest alone, or prepare to fight!",
         ],
+        "tickle_response": "Knock it off! Goblins are fearsome, not ticklish!",
     },
 
     # do not change the sea dragon
@@ -256,5 +257,6 @@ ENEMIES = {
             "The key you seek was claimed by the sea long ago.",
             "Turn back now. My next words will be spoken in flame.",
         ],
+        "tickle_response": "Stop that, tiny mortal! You are testing my patience!",
     },
 }

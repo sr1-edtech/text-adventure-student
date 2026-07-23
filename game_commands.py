@@ -48,6 +48,7 @@ def cmd_go(noun, game):
         valid = ", ".join(room["exits"].keys())
         return ("error", f"You can't go {noun} from here. Exits: {valid}.")
 
+
     if ge.room_is_blocked(game):
         enemy, _ = ge.get_enemy_in_room(game)
         return ("error",
@@ -93,7 +94,11 @@ def cmd_look(noun, game):
                 edesc = enemy.get("description", enemy["name"])
                 desc += f"\n\n[ALERT] {edesc}"
                 if enemy.get("dialogue"):
-                    desc += f"\nType 'talk {enemy['name'].lower()}' to speak with them."
+                    enemy_name = enemy["name"].lower()
+                    desc += (
+                        f"\nType 'talk {enemy_name}' to speak with them "
+                        f"or 'tickle {enemy_name}' to annoy them."
+                    )
 
         if location == "ocean_middle" and not game["player"].get("parchment_read", False):
             visible_exits = {k: v for k, v in room["exits"].items() if k != "north"}
@@ -243,6 +248,24 @@ def cmd_talk(noun, game):
     line = dialogue[dialogue_index % len(dialogue)]
     enemy["dialogue_index"] = dialogue_index + 1
     return ("response", f'{enemy_name}: "{line}"')
+
+
+def cmd_tickle(noun, game):
+    """Tickle the living enemy in the current room."""
+    enemy, _ = ge.get_enemy_in_room(game)
+    if enemy is None:
+        return ("error", "There's no enemy here to tickle.")
+
+    target = noun
+    if target and target.startswith("the "):
+        target = target[4:]
+
+    enemy_name = enemy["name"]
+    if target and target not in (enemy_name.lower(), "enemy"):
+        return ("error", f"You don't see an enemy named '{target}' here.")
+
+    reaction = enemy.get("tickle_response", "Stop that! You're making me angry!")
+    return ("response", f'You tickle the {enemy_name}.\n\n{enemy_name}: "{reaction}"')
 
 
 def cmd_wait(noun, game):
@@ -407,6 +430,7 @@ COMMAND_MAP = {
     "fight":  cmd_attack,
     "talk":   cmd_talk,
     "speak":  cmd_talk,
+    "tickle": cmd_tickle,
     # Use
     "wait":   cmd_wait,
     "z":      cmd_wait,
@@ -441,5 +465,5 @@ def handle_command(raw, game):
 
     return ("error",
             f"I don't know how to '{verb}'. "
-            "Try 'look', 'go north', 'pick <item>', 'talk', 'attack', "
+            "Try 'look', 'go north', 'pick <item>', 'talk', 'tickle', 'attack', "
             "or check the commands panel →")
