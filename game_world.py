@@ -18,7 +18,7 @@ ROOMS = {
 
     # ── SCENE 1 ──
     "ocean_beginning": {
-        "name": "SCENE 1",  # TASK 1: rename this scene
+        "name": "The Sea",  # TASK 1: rename this scene
         "description": (
             "You find yourself on a weathered vessel, surrounded by open ocean. "
             "A flag snaps overhead. You do not know how you got here. "
@@ -233,10 +233,15 @@ ENEMIES = {
     # TASK 6 (optional): rename the goblin to a new enemy
     "goblin": {
         "name": "Goblin",          # TASK 6: rename your enemy
-        "health": 20,              # TASK 2: change this number
-        "damage": 10,              # TASK 2: change this number
+        "health": 2000,              # TASK 2: change this number
+        "damage": 55,              # TASK 2: change this number
         "alive": True,
         "description": "A scraggly goblin eyes you hungrily, teeth bared.",  # TASK 6: update this
+        "dialogue": [
+            "Hold it! This treasure belongs to me.",
+            "You look lost. The sea tends to have that effect on people.",
+            "Last warning: leave the chest alone, or prepare to fight!",
+        ],
     },
 
     # do not change the sea dragon
@@ -246,5 +251,10 @@ ENEMIES = {
         "damage": 34,
         "alive": True,
         "description": "A colossal sea dragon rises from the deep, scales like black mirrors.",
+        "dialogue": [
+            "Mortal, you have sailed far beyond the safety of your kind.",
+            "The key you seek was claimed by the sea long ago.",
+            "Turn back now. My next words will be spoken in flame.",
+        ],
     },
 }

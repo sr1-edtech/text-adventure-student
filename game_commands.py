@@ -92,6 +92,8 @@ def cmd_look(noun, game):
             if enemy.get("alive", False):
                 edesc = enemy.get("description", enemy["name"])
                 desc += f"\n\n[ALERT] {edesc}"
+                if enemy.get("dialogue"):
+                    desc += f"\nType 'talk {enemy['name'].lower()}' to speak with them."
 
         if location == "ocean_middle" and not game["player"].get("parchment_read", False):
             visible_exits = {k: v for k, v in room["exits"].items() if k != "north"}
@@ -219,6 +221,30 @@ def cmd_attack(noun, game):
             + hint)
 
 
+def cmd_talk(noun, game):
+    """Speak to the living enemy in the current room."""
+    enemy, _ = ge.get_enemy_in_room(game)
+    if enemy is None:
+        return ("error", "There's no one here to talk to.")
+
+    target = noun
+    if target and target.startswith("to "):
+        target = target[3:]
+
+    enemy_name = enemy["name"]
+    if target and target not in (enemy_name.lower(), "enemy"):
+        return ("error", f"You don't see anyone named '{target}' here.")
+
+    dialogue = enemy.get("dialogue", [])
+    if not dialogue:
+        return ("response", f"The {enemy_name} has nothing to say.")
+
+    dialogue_index = enemy.get("dialogue_index", 0)
+    line = dialogue[dialogue_index % len(dialogue)]
+    enemy["dialogue_index"] = dialogue_index + 1
+    return ("response", f'{enemy_name}: "{line}"')
+
+
 def cmd_wait(noun, game):
     """Rest and recover a little health."""
     p = game["player"]
@@ -327,6 +353,9 @@ def cmd_diagnose(noun, game):
 def cmd_scream(noun, game):
     return ("response", "AAAAAHHH! The sea is unimpressed.")
 
+def cmd_sing(noun, game):
+    return ("response", "You start to sing a song and you feel a little better.")
+
 def cmd_dance(noun, game):
     return ("response", "You bust out your best moves. Worth it.")
 
@@ -376,6 +405,8 @@ COMMAND_MAP = {
     # Combat
     "attack": cmd_attack,
     "fight":  cmd_attack,
+    "talk":   cmd_talk,
+    "speak":  cmd_talk,
     # Use
     "wait":   cmd_wait,
     "z":      cmd_wait,
@@ -390,6 +421,7 @@ COMMAND_MAP = {
     "eat":    cmd_eat,
     "hug":    cmd_hug,
     # ↓ add your commands here ↓
+    "sing": cmd_sing,
 }
 
 
@@ -409,4 +441,5 @@ def handle_command(raw, game):
 
     return ("error",
             f"I don't know how to '{verb}'. "
-            "Try 'look', 'go north', 'pick <item>', 'attack', or check the commands panel →")
+            "Try 'look', 'go north', 'pick <item>', 'talk', 'attack', "
+            "or check the commands panel →")
